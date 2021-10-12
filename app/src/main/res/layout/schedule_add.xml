@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <DatePicker
+        android:id="@+id/date_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:visibility="visible">
+    </DatePicker>
+
+    <TableRow
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <CheckBox
+            android:id="@+id/sundayBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="일"
+            android:buttonTint="@color/red" />
+
+        <CheckBox
+            android:id="@+id/mondayBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="월" />
+        <CheckBox
+            android:id="@+id/tuesdayBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="화" />
+        <CheckBox
+            android:id="@+id/wednesdayBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="수" />
+        <CheckBox
+            android:id="@+id/thursdayBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="목" />
+        <CheckBox
+            android:id="@+id/fridayBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="금" />
+        <CheckBox
+            android:id="@+id/saturdayBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="토"
+            android:buttonTint="@color/bright_blue" />
+    </TableRow>
+    <Switch
+        android:layout_margin="20dp"
+        android:id="@+id/set_style_switch"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:text="요일 반복 일정"/>
+
+    <TimePicker
+        android:id="@+id/time_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner">
+    </TimePicker>
+
+    <EditText
+        android:id="@+id/schedule_description"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="text"
+        android:hint="스케줄 설명">
+    </EditText>
+
+
+    <Button
+        android:id="@+id/schedule_btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="저장">
+    </Button>
+
+    <Button
+        android:id="@+id/schedule_btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="취소">
+    </Button>
+
+
+
+
+</LinearLayout>

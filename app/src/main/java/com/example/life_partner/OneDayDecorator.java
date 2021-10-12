@@ -34,3 +34,4 @@ public class OneDayDecorator implements DayViewDecorator {
         this.date = CalendarDay.from(date);
     }
 }
+
