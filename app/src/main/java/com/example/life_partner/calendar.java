@@ -61,7 +61,11 @@ public class calendar extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+<<<<<<< HEAD
             if(requestCode == 1 && resultCode == RESULT_OK){
+=======
+            if(requestCode == 1){
+>>>>>>> origin/master
                 //************* temporary output by using Toast ******************
                 //************* should be use Database ***************************
                 int year, month, day, hour, minute;
@@ -74,7 +78,11 @@ public class calendar extends Fragment {
                     if (data.getBooleanExtra("thursday_is_checked", false))result += "목요일 ";
                     if (data.getBooleanExtra("friday_is_checked", false))result += "금요일 ";
                     if (data.getBooleanExtra("saturday_is_checked", false))result += "토요일 ";
+<<<<<<< HEAD
                     result += "마다 ";
+=======
+                    result += "마다";
+>>>>>>> origin/master
                 }
                 else{
                     year = data.getIntExtra("saved_year", 2000);
