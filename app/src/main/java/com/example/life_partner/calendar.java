@@ -24,6 +24,7 @@ public class calendar extends Fragment {
 
     MaterialCalendarView mcv;
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +33,10 @@ public class calendar extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         mcv = view.findViewById(R.id.calendar_view);
 
@@ -61,43 +61,34 @@ public class calendar extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-<<<<<<< HEAD
-            if(requestCode == 1 && resultCode == RESULT_OK){
-=======
-            if(requestCode == 1){
->>>>>>> origin/master
-                //************* temporary output by using Toast ******************
-                //************* should be use Database ***************************
-                int year, month, day, hour, minute;
-                String result = "";
-                if(data.getBooleanExtra("week_of_day_checked", false)){
-                    if (data.getBooleanExtra("sunday_is_checked", false))result += "일요일 ";
-                    if (data.getBooleanExtra("monday_is_checked", false))result += "월요일 ";
-                    if (data.getBooleanExtra("tuesday_is_checked", false))result += "화요일 ";
-                    if (data.getBooleanExtra("wednesday_is_checked", false))result += "수요일 ";
-                    if (data.getBooleanExtra("thursday_is_checked", false))result += "목요일 ";
-                    if (data.getBooleanExtra("friday_is_checked", false))result += "금요일 ";
-                    if (data.getBooleanExtra("saturday_is_checked", false))result += "토요일 ";
-<<<<<<< HEAD
-                    result += "마다 ";
-=======
-                    result += "마다";
->>>>>>> origin/master
-                }
-                else{
-                    year = data.getIntExtra("saved_year", 2000);
-                    month = data.getIntExtra("saved_month", 0);
-                    day = data.getIntExtra("saved_day", 1);
-                    result += Integer.toString(year) + "년 ";
-                    result += Integer.toString(month) + "월 ";
-                    result += Integer.toString(day) + "일 ";
-                }
-                hour = data.getIntExtra("saved_hour", 1);
-                minute = data.getIntExtra("saved_minute", 1);
-                result += Integer.toString(hour) + "시 ";
-                result += Integer.toString(minute) + "분에 알람이 울립니다.";
-
-                Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            //************* temporary output by using Toast ******************
+            //************* should be use Database ***************************
+            int year, month, day, hour, minute;
+            String result = "";
+            if (data.getBooleanExtra("week_of_day_checked", false)) {
+                if (data.getBooleanExtra("sunday_is_checked", false)) result += "일요일 ";
+                if (data.getBooleanExtra("monday_is_checked", false)) result += "월요일 ";
+                if (data.getBooleanExtra("tuesday_is_checked", false)) result += "화요일 ";
+                if (data.getBooleanExtra("wednesday_is_checked", false)) result += "수요일 ";
+                if (data.getBooleanExtra("thursday_is_checked", false)) result += "목요일 ";
+                if (data.getBooleanExtra("friday_is_checked", false)) result += "금요일 ";
+                if (data.getBooleanExtra("saturday_is_checked", false)) result += "토요일 ";
+                result += "마다 ";
+            } else {
+                year = data.getIntExtra("saved_year", 2000);
+                month = data.getIntExtra("saved_month", 0);
+                day = data.getIntExtra("saved_day", 1);
+                result += Integer.toString(year) + "년 ";
+                result += Integer.toString(month) + "월 ";
+                result += Integer.toString(day) + "일 ";
             }
+            hour = data.getIntExtra("saved_hour", 1);
+            minute = data.getIntExtra("saved_minute", 1);
+            result += Integer.toString(hour) + "시 ";
+            result += Integer.toString(minute) + "분에 알람이 울립니다.";
+
+            Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
+        }
     }
 }
