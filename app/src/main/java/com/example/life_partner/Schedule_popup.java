@@ -85,7 +85,7 @@ public class Schedule_popup extends Activity {
                 }
                 Intent intent = new Intent();
                 intent.putExtra("saved_year", dp.getYear());
-                intent.putExtra("saved_month", dp.getMonth());
+                intent.putExtra("saved_month", dp.getMonth()+1);
                 intent.putExtra("saved_day", dp.getDayOfMonth());
                 intent.putExtra("week_of_day_checked", swch.isChecked());
                 intent.putExtra("sunday_is_checked", cb[0].isChecked());
