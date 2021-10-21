@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.Date;
+
 
 public class Schedule_popup extends Activity {
     TimePicker tp;
@@ -54,6 +56,11 @@ public class Schedule_popup extends Activity {
                 getIntent().getIntExtra("selected_month", 0),
                 getIntent().getIntExtra("selected_day", 1)
         );
+        Date currentDate = new Date();
+
+        tp.setHour(currentDate.getHours());
+        tp.setMinute(currentDate.getMinutes());
+
 
         swch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -83,9 +90,16 @@ public class Schedule_popup extends Activity {
                         return;
                     }
                 }
+                Date selectedDate = new Date(dp.getYear(),dp.getMonth(),dp.getDayOfMonth(),tp.getHour(),tp.getMinute());
+
+                if(selectedDate.before(currentDate)){
+                    Toast.makeText(getApplicationContext(), "you can't plan before than now", Toast.LENGTH_LONG);
+
+                }
+
                 Intent intent = new Intent();
                 intent.putExtra("saved_year", dp.getYear());
-                intent.putExtra("saved_month", dp.getMonth()+1);
+                intent.putExtra("saved_month", dp.getMonth());
                 intent.putExtra("saved_day", dp.getDayOfMonth());
                 intent.putExtra("week_of_day_checked", swch.isChecked());
                 intent.putExtra("sunday_is_checked", cb[0].isChecked());

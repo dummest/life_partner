@@ -28,7 +28,7 @@
             app:tabSelectedTextColor="@color/bright_blue"
             app:tabIndicatorGravity="top"
             app:tabIndicatorHeight="5dp"
-            app:tabRippleColor="@color/bright_blue">
+            app:tabRippleColor="@color/light_red">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/calendar_tab"

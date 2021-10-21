@@ -19,11 +19,14 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.util.Calendar;
+
 
 public class calendar extends Fragment {
 
     MaterialCalendarView mcv;
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
+    CalendarDay selectedDay = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,15 +48,26 @@ public class calendar extends Fragment {
 
         mcv.addDecorators(new SaturdayDecorator(), new SundayDecorator(), oneDayDecorator);
 
+
+
         mcv.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                Intent intent = new Intent(widget.getContext(), Schedule_popup.class);
-                intent.putExtra("selected_year", mcv.getSelectedDate().getYear());
-                intent.putExtra("selected_month", mcv.getSelectedDate().getMonth());
-                intent.putExtra("selected_day", mcv.getSelectedDate().getDay());
-                startActivityForResult(intent, 1);
+                Intent intent;
+                if(selectedDay == null || selectedDay != date) {
+                    selectedDay = date;
+
+                }
+                //선택된 날을 한번 더 클릭시
+                else {
+                    intent = new Intent(widget.getContext(), Schedule_popup.class);
+                    intent.putExtra("selected_year", mcv.getSelectedDate().getYear());
+                    intent.putExtra("selected_month", mcv.getSelectedDate().getMonth());
+                    intent.putExtra("selected_day", mcv.getSelectedDate().getDay());
+                    startActivityForResult(intent, 1);
+                }
             }
+
         });
         return view;
     }
@@ -77,7 +91,7 @@ public class calendar extends Fragment {
                 result += "마다 ";
             } else {
                 year = data.getIntExtra("saved_year", 2000);
-                month = data.getIntExtra("saved_month", 0);
+                month = data.getIntExtra("saved_month", 0)+1;
                 day = data.getIntExtra("saved_day", 1);
                 result += Integer.toString(year) + "년 ";
                 result += Integer.toString(month) + "월 ";
