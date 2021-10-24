@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:title="체크박스"
-        />
-    <SwitchPreference
-        android:title="스위치"
-        />
+    <PreferenceCategory
+        android:title="계정 및 색상 관리">
+        <ListPreference
+            android:key="color"
+            android:title="캘린더 색상 관리"
+            android:summary="캘린더 색상을 선택하세요"
+            android:entries="@array/array_color"
+            android:entryValues="@array/array_color" />
+    </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="캘린더 디자인">
+        <CheckBoxPreference
+            android:key="message"
+            android:title="중요 일정 색상 표시"
+            android:summary="중요한 요일에 색상을 집어넣으세요."/>
+    </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="추가 설정">
+
+    </PreferenceCategory>
 </PreferenceScreen>
