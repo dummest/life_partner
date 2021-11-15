@@ -28,6 +28,7 @@ public class Schedule_popup extends Activity {
     CheckBox[] cb = new CheckBox[7];
     TableRow tr;
     Button save;
+    EditText schedule_descripsion;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class Schedule_popup extends Activity {
         cb[4] = findViewById(R.id.thursdayBox);
         cb[5] = findViewById(R.id.fridayBox);
         cb[6] = findViewById(R.id.saturdayBox);
+        schedule_descripsion = findViewById(R.id.schedule_description);
         save = findViewById(R.id.schedule_btn_save);
 
 
@@ -81,11 +83,11 @@ public class Schedule_popup extends Activity {
             @Override
             public void onClick(View view) {
                 if (swch.isChecked()){
-                    for(int i = 0; i < cb.length; i++){
-                        if (cb[i].isChecked())
+                    for(CheckBox c : cb){
+                        if (c.isChecked())
                             cb_checked = true;
                     }
-                    if(cb_checked == false){
+                    if(!cb_checked){
                         Toast.makeText(getApplicationContext(), "set your day of the week", Toast.LENGTH_LONG).show();
                         return;
                     }
@@ -93,7 +95,7 @@ public class Schedule_popup extends Activity {
                 Date selectedDate = new Date(dp.getYear(),dp.getMonth(),dp.getDayOfMonth(),tp.getHour(),tp.getMinute());
 
                 if(selectedDate.before(currentDate)){
-                    Toast.makeText(getApplicationContext(), "you can't plan before than now", Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(), "you can't plan before than now", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -112,6 +114,7 @@ public class Schedule_popup extends Activity {
 
                 intent.putExtra("saved_hour", tp.getHour());
                 intent.putExtra("saved_minute", tp.getMinute());
+                intent.putExtra("alarm_description", schedule_descripsion.getText());
                 setResult(RESULT_OK, intent);
                 finish();
             }

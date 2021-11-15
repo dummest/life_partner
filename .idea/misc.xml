@@ -24,6 +24,19 @@
         <entry key="..\:/Users/rhqem/AndroidStudioProjects/Life_partner/app/src/main/res/menu/menu_bottom.xml" value="0.165" />
         <entry key="..\:/Users/rhqem/AndroidStudioProjects/Life_partner/app/src/main/res/xml/asd.xml" value="0.10729166666666666" />
         <entry key="..\:/Users/rhqem/AndroidStudioProjects/Life_partner/app/src/main/res/xml/setting_list.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/alarm_switch.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/drawable/baseline_alarm_on_24.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/drawable/baseline_calendar_today_24.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/drawable/baseline_receipt_long_24.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/drawable/calendar_selector.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/drawable/round_border.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/drawable/selected_border.xml" value="0.11927083333333334" />
+        <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.1419753086419753" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.1203125" />
+        <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.1203125" />
+        <entry key="app/src/main/res/layout/schedule_add.xml" value="0.1203125" />
       </map>
     </option>
   </component>
