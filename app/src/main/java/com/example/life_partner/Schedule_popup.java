@@ -117,6 +117,8 @@ public class Schedule_popup extends Activity {
                 intent.putExtra("alarm_description", schedule_descripsion.getText());
                 setResult(RESULT_OK, intent);
                 finish();
+
+
             }
         });
 

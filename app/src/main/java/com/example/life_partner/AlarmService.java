@@ -23,20 +23,20 @@ public class AlarmService extends Service {
         if (Build.VERSION.SDK_INT >= 26) {
             String CHANNEL_ID = "default";
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    "Channel human readable title",
+                    "스케줄 알람",
                     NotificationManager.IMPORTANCE_HIGH);
 
             ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
             Intent intent = new Intent(this, calendar.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(getResources().getString(R.string.app_name))
-                    .setContentText("알람음이 재생됩니다.")
+                    //.setContentText();
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
-                    .setContentIntent(pendingIntent);
-
+                    //.setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
 
             Notification notification = builder.build();
             startForeground(1, notification);
