@@ -1,9 +1,13 @@
 package com.example.life_partner;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Adapter;
+import android.widget.ListView;
+
 import androidx.annotation.Nullable;
 
 
@@ -17,7 +21,7 @@ public class myDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS notiTBL");
+        db.execSQL("DROP TABLE IF EXISTS notiTBL;");
         onCreate(db);
     }
 
@@ -32,9 +36,18 @@ public class myDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void Delete(int id) {
+    public void delete(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM notiTBL WHERE ID = " + id +"");
+        db.execSQL("DELETE FROM notiTBL WHERE ID = " + id +";");
+        db.close();
+    }
+
+    public void getDs(int year, int month, int day){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM notiTBL WHERE YEAR = " + year + ", AND MONTH = " + month + ", AND DAY = "+ day + ";  ", null);
+        while (cursor.moveToNext()){
+
+        }
         db.close();
     }
 

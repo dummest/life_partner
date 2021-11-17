@@ -37,6 +37,7 @@
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/schedule_add.xml" value="0.1203125" />
+        <entry key="app/src/main/res/xml/setting_list.xml" value="0.2588201902567026" />
       </map>
     </option>
   </component>
