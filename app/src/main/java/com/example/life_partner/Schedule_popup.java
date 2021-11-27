@@ -1,7 +1,11 @@
 package com.example.life_partner;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -17,18 +21,20 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
 public class Schedule_popup extends Activity {
+    EditText title, des;
     TimePicker tp;
     DatePicker dp;
     Switch swch;
-    EditText et;
     CheckBox[] cb = new CheckBox[7];
     TableRow tr;
     Button save;
-    EditText schedule_descripsion;
+    Calendar alarmCalendar;
+    myDBHelper dbHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,10 +42,11 @@ public class Schedule_popup extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.schedule_add);
 
+        title = findViewById(R.id.edt_title);
         tp = findViewById(R.id.time_selector);
         dp = findViewById(R.id.date_selector);
         swch = findViewById(R.id.set_style_switch);
-        et = findViewById(R.id.schedule_description);
+        des = findViewById(R.id.schedule_description);
         tr = findViewById(R.id.cb_table);
         cb[0] = findViewById(R.id.sundayBox);
         cb[1] = findViewById(R.id.mondayBox);
@@ -48,9 +55,8 @@ public class Schedule_popup extends Activity {
         cb[4] = findViewById(R.id.thursdayBox);
         cb[5] = findViewById(R.id.fridayBox);
         cb[6] = findViewById(R.id.saturdayBox);
-        schedule_descripsion = findViewById(R.id.schedule_description);
         save = findViewById(R.id.schedule_btn_save);
-
+        dbHelper = new myDBHelper(getApplicationContext());
 
         dp.setMinDate(System.currentTimeMillis());
         dp.updateDate(
@@ -99,29 +105,40 @@ public class Schedule_popup extends Activity {
 
                 }
 
-                Intent intent = new Intent();
-                intent.putExtra("saved_year", dp.getYear());
-                intent.putExtra("saved_month", dp.getMonth());
-                intent.putExtra("saved_day", dp.getDayOfMonth());
-                intent.putExtra("week_of_day_checked", swch.isChecked());
-                intent.putExtra("sunday_is_checked", cb[0].isChecked());
-                intent.putExtra("monday_is_checked", cb[1].isChecked());
-                intent.putExtra("tuesday_is_checked", cb[2].isChecked());
-                intent.putExtra("wednesday_is_checked", cb[3].isChecked());
-                intent.putExtra("thursday_is_checked", cb[4].isChecked());
-                intent.putExtra("friday_is_checked", cb[5].isChecked());
-                intent.putExtra("saturday_is_checked", cb[6].isChecked());
+                int year, month, day, hour, minute;
+                year = dp.getYear();
+                month = dp.getMonth();
+                day  = dp.getDayOfMonth();
+                hour = tp.getHour();
+                minute = tp.getMinute();
 
-                intent.putExtra("saved_hour", tp.getHour());
-                intent.putExtra("saved_minute", tp.getMinute());
-                intent.putExtra("alarm_description", schedule_descripsion.getText());
-                setResult(RESULT_OK, intent);
+                if(cb_checked)
+                    setAlarm(cb, hour, minute);
+                else
+                    setAlarm(year, month, day, hour, minute);
+                    dbHelper.insert(year, month, day, hour, minute, title.getText().toString(), des.getText().toString());
+                Toast.makeText(getApplicationContext(), "알람이 설정되었습니다", Toast.LENGTH_SHORT).show();
                 finish();
-
-
             }
         });
+    }
+    public void setAlarm(int year, int month, int dayOfMonth, int hour, int minute) {
+        alarmCalendar = Calendar.getInstance();
+        alarmCalendar.setTimeInMillis(System.currentTimeMillis());
+        alarmCalendar.set(year, month, dayOfMonth, hour, minute,0);
+
+        Context context = getApplicationContext();
+        Intent alarmIntent = new Intent(context,MyReceiver.class);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        //pendingIntent = 어떤 일이 생길때 까지 기다리는 인텐트
+        PendingIntent alarmCallPendingIntent = PendingIntent.getBroadcast(context,0,alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), alarmCallPendingIntent);
 
     }
 
+    public void setAlarm(CheckBox dayOfWeek[], int hour, int minute){
+        alarmCalendar = Calendar.getInstance();
+    }
 }

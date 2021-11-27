@@ -33,10 +33,11 @@
         <entry key="app/src/main/res/drawable/round_border.xml" value="0.11927083333333334" />
         <entry key="app/src/main/res/drawable/selected_border.xml" value="0.11927083333333334" />
         <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.1419753086419753" />
-        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.25943010282288664" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.1203125" />
-        <entry key="app/src/main/res/layout/schedule_add.xml" value="0.1203125" />
+        <entry key="app/src/main/res/layout/list_item.xml" value="0.20155038759689922" />
+        <entry key="app/src/main/res/layout/schedule_add.xml" value="0.19897070311075624" />
         <entry key="app/src/main/res/xml/setting_list.xml" value="0.2588201902567026" />
       </map>
     </option>
