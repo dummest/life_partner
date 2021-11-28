@@ -24,8 +24,8 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public myData getItem(int i) {
+        return list.get(i);
     }
 
     @Override

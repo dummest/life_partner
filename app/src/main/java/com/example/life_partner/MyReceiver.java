@@ -14,6 +14,7 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
             Intent in = new Intent(context, AlarmService.class );
+            in.putExtra("notiId", intent.getIntExtra("notiId", 0));
             in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startService(in);
         Log.d("receiver", "리시버 호출");

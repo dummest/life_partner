@@ -14,7 +14,6 @@ public class myData {
         this.title = title;
         this.description = description;
     }
-
     public int getId() {
         return id;
     }

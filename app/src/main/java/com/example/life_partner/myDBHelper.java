@@ -40,6 +40,13 @@ public class myDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void update(int id, int year, int month, int day, int hour, int minute, String title, String description) {
+        SQLiteDatabase db = getWritableDatabase();
+        //String sql = "INSERT INTO notiTBL VALUES(year, month, day, hour, minute, description)";
+        db.execSQL("update notiTBL set year =" + year + ", month =" + month + ", day =" + day + ", hour =" + hour + ", minute =" + minute + ", title = '" + title + "', description = '" + description + "' where notiId =" + id);
+        db.close();
+    }
+
     public void delete(int id) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM notiTBL WHERE ID = " + id +";");
