@@ -1,14 +1,14 @@
 package com.example.life_partner;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +18,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.TimePicker;
@@ -38,13 +40,17 @@ public class Schedule_popup extends Activity {
     TableRow tr;
     Button save;
     Calendar alarmCalendar;
+    RadioGroup rg;
     myDBHelper dbHelper;
     int notiId = 0;
+    Date currentDate = new Date();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.schedule_add);
+
         title = findViewById(R.id.edt_title);
         tp = findViewById(R.id.time_selector);
         dp = findViewById(R.id.date_selector);
@@ -59,25 +65,13 @@ public class Schedule_popup extends Activity {
         cb[5] = findViewById(R.id.fridayBox);
         cb[6] = findViewById(R.id.saturdayBox);
         save = findViewById(R.id.schedule_btn_save);
+        rg = findViewById(R.id.alarm_type);
         dbHelper = new myDBHelper(getApplicationContext());
 
         notiId = getIntent().getIntExtra("notiId", 0);
-        dp.setMinDate(System.currentTimeMillis());
-        dp.updateDate(
-                getIntent().getIntExtra("selected_year", 2021),
-                getIntent().getIntExtra("selected_month", 0),
-                getIntent().getIntExtra("selected_day", 1)
-        );
-        Date currentDate = new Date();
+        if (notiId != 0)
+            initialize();
 
-        tp.setHour(getIntent().getIntExtra("selected_hour", currentDate.getHours()));
-        tp.setMinute(getIntent().getIntExtra("selected_minute", currentDate.getMinutes()));
-        String t = getIntent().getStringExtra("selected_title");
-        if (t != null)
-            title.setText(t);
-        String d = getIntent().getStringExtra("selected_description");
-        if (d != null)
-            des.setText(d);
 
 
         swch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -108,27 +102,36 @@ public class Schedule_popup extends Activity {
                         return;
                     }
                 }
-                Date selectedDate = new Date(dp.getYear(),dp.getMonth(),dp.getDayOfMonth(),tp.getHour(),tp.getMinute());
-
-                if(selectedDate.before(currentDate)){
-                    Toast.makeText(getApplicationContext(), "you can't plan before than now", Toast.LENGTH_LONG).show();
-
-                }
-
                 int year, month, day, hour, minute;
                 year = dp.getYear();
                 month = dp.getMonth();
                 day  = dp.getDayOfMonth();
                 hour = tp.getHour();
                 minute = tp.getMinute();
+                RadioButton rb = findViewById(rg.getCheckedRadioButtonId());
+                Log.d(TAG, String.valueOf(rb.getText()));
+                int alarmtype = 0;
+
+                switch (rb.getId()){
+                    case R.id.mute:
+                        alarmtype = 1;
+                        break;
+                    case R.id.notification:
+                        alarmtype = 2;
+                        break;
+                    case R.id.full_screen:
+                        alarmtype = 3;
+                        break;
+                }
 
                 //노티id가 초기값(0)일 때 즉 새로 만들 때
                 if(notiId == 0) {
                     if (cb_checked)
                         setAlarm(cb, hour, minute);
                     else {
-                        dbHelper.insert(year, month, day, hour, minute, title.getText().toString(), des.getText().toString());
+                        dbHelper.insert(year, month, day, hour, minute, title.getText().toString(), des.getText().toString(), alarmtype);
 
+                        //seq 값으로 마지막으로 삽입한 열의 id 알기
                         SQLiteDatabase db = dbHelper.getWritableDatabase();
                         String sql = "select seq from sqlite_sequence";
                         Cursor cursor = db.rawQuery(sql, null);
@@ -140,7 +143,7 @@ public class Schedule_popup extends Activity {
                 }
                 //노티id가 있을 떄 즉 편집할 때
                 else{
-                    dbHelper.update(notiId, year, month, day, hour, minute, title.getText().toString(), des.getText().toString());
+                    dbHelper.update(notiId, year, month, day, hour, minute, title.getText().toString(), des.getText().toString(), alarmtype);
                     setAlarm(notiId, year, month, day, hour, minute);
                 }
 
@@ -159,22 +162,42 @@ public class Schedule_popup extends Activity {
         alarmIntent.putExtra("notiId", id);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        //pendingIntent = 어떤 일이 생길때 까지 기다리는 인텐트
+        //pendingIntent = 특정 시점 까지 기다리는 인텐트
         PendingIntent sender = PendingIntent.getBroadcast(context, id, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), sender);
 
     }
 
     public void setAlarm(CheckBox dayOfWeek[], int hour, int minute){
-        alarmCalendar = Calendar.getInstance();
+        //미구현
     }
 
-    public void stopAlarm(int id){
-        Context context = getApplicationContext();
-        Intent alarmIntent = new Intent(context,MyReceiver.class);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+    private void initialize(){
+        dp.updateDate(
+                getIntent().getIntExtra("selected_year", 2021),
+                getIntent().getIntExtra("selected_month", 0),
+                getIntent().getIntExtra("selected_day", 1)
+        );
 
-        PendingIntent sender = PendingIntent.getBroadcast(context, id, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.cancel(sender);
+        tp.setHour(getIntent().getIntExtra("selected_hour", currentDate.getHours()));
+        tp.setMinute(getIntent().getIntExtra("selected_minute", currentDate.getMinutes()));
+        String t = getIntent().getStringExtra("selected_title");
+        if (t != null)
+            title.setText(t);
+        String d = getIntent().getStringExtra("selected_description");
+        if (d != null)
+            des.setText(d);
+
+        switch (getIntent().getIntExtra("selected_alarmtype", 2)){
+            case 1: rg.check(R.id.mute);
+                Log.d(TAG, "initialize: rg1 ");
+            break;
+            case 2: rg.check(R.id.notification);
+                Log.d(TAG, "initialize: rg2 ");
+            break;
+            case 3: rg.check(R.id.full_screen);
+                Log.d(TAG, "initialize: rg3 ");
+            break;
+        }
     }
 }

@@ -22,10 +22,20 @@
         />
     </LinearLayout>
     <LinearLayout
-        android:gravity="center"
+        android:gravity="top"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2.2">
+        android:layout_weight="2.2"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textAlignment="center"
+            android:text="제목"
+            android:layout_marginBottom="10dp"/>
         <TextView
             android:id="@+id/description_view"
             android:layout_width="match_parent"

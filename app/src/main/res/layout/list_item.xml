@@ -10,14 +10,19 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="시간"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:layout_gravity="center"/>
 
 
     <TextView
+        android:layout_weight="1"
         android:layout_margin="10dp"
         android:id="@+id/title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="alarm_title"/>
+        android:text="alarm_title"
+        android:layout_gravity="center"/>
+    
+
 </LinearLayout>

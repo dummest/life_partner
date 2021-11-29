@@ -29,20 +29,23 @@ public class AlarmService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         int notiId = intent.getIntExtra("notiId", 0);
         myDBHelper dbHelper = new myDBHelper(getApplicationContext());
-        String sql = "SELECT title, description from notiTBL where notiId =" + notiId + ";";
+        String sql = "SELECT title, description, alarmtype from notiTBL where notiId =" + notiId + ";";
         String title = "제목";
         String description = "내용";
+        int alarmtype = 0;
+
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         while(cursor.moveToNext()){
             title = cursor.getString(0);
             description = cursor.getString(1);
+            alarmtype = cursor.getInt(2);
         }
         cursor.close();
 
-        createNotification(CHANNEL_ID, notiId, title, description);
+        createNotification(CHANNEL_ID, notiId, title, description, alarmtype);
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_REDELIVER_INTENT;
     }
 
     void createNotificationChannel(String channelId, String channelName, int importance){
@@ -53,7 +56,7 @@ public class AlarmService extends Service {
         }
     }
 
-    void createNotification(String channelId, int id, String title, String description){
+    void createNotification(String channelId, int id, String title, String description, int alarmtype) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);//터치시 메인액티비티로 이동할 인텐트
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -64,12 +67,31 @@ public class AlarmService extends Service {
                 .setContentTitle(title)//제목 텍스트
                 .setContentText(description)
                 .setSmallIcon(R.mipmap.ic_launcher)//작은 아이콘
-                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)//알림시 효과음, 진동여부
                 .setContentIntent(pendingIntent)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setAutoCancel(true);
 
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(id, builder.build());
+        switch (alarmtype) {
+            case 2:
+                builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);//알림시 효과음, 진동여부
+                notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(id, builder.build());
+                break;
+            case 3:
+            Intent fullScreenIntent = new Intent(this, AlarmActivity.class);
+            fullScreenIntent.putExtra("title", title);
+            fullScreenIntent.putExtra("description", description);
+            PendingIntent fullScreenPendingIntent = PendingIntent.getActivity(this, 0,
+                    fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setFullScreenIntent(fullScreenPendingIntent, true);
+
+                Log.d(TAG, "createNotification: fullscreen ");
+
+            startForeground(id, builder.build());
+            stopForeground(true);
+
+            break;
+        }
     }
     @Override
     public IBinder onBind(Intent intent) {

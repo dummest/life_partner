@@ -1,10 +1,10 @@
 package com.example.life_partner;
 
 public class myData {
-    int id, year, month, day, hour, minute;
+    int id, year, month, day, hour, minute, alarmtype;
     String title, description;
 
-    public myData(int id, int year, int month, int day, int hour, int minute, String title, String description) {
+    public myData(int id, int year, int month, int day, int hour, int minute, String title, String description, int alarmtype) {
         this.id = id;
         this.year =year;
         this.month = month;
@@ -13,6 +13,7 @@ public class myData {
         this.minute = minute;
         this.title = title;
         this.description = description;
+        this.alarmtype = alarmtype;
     }
     public int getId() {
         return id;
@@ -41,7 +42,7 @@ public class myData {
     public String getTitle(){
         return title;
     }
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
+
+    public int getAlarmtype() { return alarmtype; }
 }

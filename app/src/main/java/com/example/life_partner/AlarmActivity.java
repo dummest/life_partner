@@ -2,9 +2,12 @@ package com.example.life_partner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,8 +19,9 @@ import java.util.Calendar;
 public class AlarmActivity extends AppCompatActivity {
     Calendar calendar;
     Button button;
-    TextView timeText, descriptionText;
+    TextView timeText, titleText, descriptionText;
     MediaPlayer mediaPlayer;
+    Vibrator vibrator;
 
     boolean flag = true;
 
@@ -26,11 +30,14 @@ public class AlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
-
         calendar = Calendar.getInstance();
         button =  findViewById(R.id.alarm_stop_button);
         timeText = (TextView) findViewById(R.id.time_view);
         descriptionText = findViewById(R.id.description_view);
+        titleText = findViewById(R.id.title_view);
+
+        titleText.setText(getIntent().getStringExtra("title"));
+        descriptionText.setText(getIntent().getStringExtra("description"));
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -41,6 +48,9 @@ public class AlarmActivity extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm1);   // 소리를 재생할 MediaPlayer
         mediaPlayer.setLooping(true);   // 무한반복
         mediaPlayer.start();
+
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createWaveform(new long[]{1000, 1000}, 1));
 
         new Thread(new Runnable() {
             @Override
@@ -67,6 +77,7 @@ public class AlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mediaPlayer.stop();
+                vibrator.cancel();
                 flag = false;
                 finish();
             }

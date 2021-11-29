@@ -43,14 +43,17 @@ public class ListViewAdapter extends BaseAdapter {
 
         TextView timeText = view.findViewById(R.id.time_text);
         TextView titleText = view.findViewById(R.id.title_text);
-        timeText.setText(Integer.toString(listdata.getHour()) + ":" + Integer.toString(listdata.getMinute()));
+        if(listdata.getMinute() >= 10)
+            timeText.setText(Integer.toString(listdata.getHour()) + ":" + Integer.toString(listdata.getMinute()));
+        else
+            timeText.setText(Integer.toString(listdata.getHour()) + ":0" + Integer.toString(listdata.getMinute()));
         titleText.setText(listdata.getTitle());
 
         return view;
     }
 
-    public void addItem(int id, int year, int month, int day, int hour, int minute, String title, String description) {
-        myData data = new myData(id, year, month, day, hour, minute, title, description);
+    public void addItem(int id, int year, int month, int day, int hour, int minute, String title, String description, int alarmtype) {
+        myData data = new myData(id, year, month, day, hour, minute, title, description, alarmtype);
         list.add(data);
     }
 

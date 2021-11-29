@@ -1,7 +1,11 @@
 package com.example.life_partner;
 
+import android.app.Application;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -15,10 +19,7 @@ import java.util.Date;
 
 public class OneDayDecorator implements DayViewDecorator {
     private CalendarDay date;
-
-    public OneDayDecorator(){
-        date = CalendarDay.today();
-    }
+    public OneDayDecorator() { date = CalendarDay.today(); }
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         return date != null && day.equals(date);
@@ -27,7 +28,7 @@ public class OneDayDecorator implements DayViewDecorator {
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new StyleSpan(Typeface.BOLD));
-        view.addSpan(new ForegroundColorSpan(Color.GREEN));
+        view.addSpan(new ForegroundColorSpan(Color.parseColor("#FF03DAC5")));
     }
 
     public void setDate(Date date) {
