@@ -11,13 +11,14 @@ import android.os.Vibrator;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
+    ViewPager vp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager vp = findViewById(R.id.viewpager);
+        vp = findViewById(R.id.viewpager);
         VPAdapter adapter = new VPAdapter(getSupportFragmentManager());
         vp.setAdapter(adapter);
 
@@ -27,5 +28,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(R.drawable.baseline_calendar_today_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.baseline_alarm_on_24);
         tabLayout.getTabAt(2).setIcon(R.drawable.baseline_settings_24);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

@@ -65,7 +65,7 @@ public class calendar extends Fragment {
             Log.d("리스트뷰  아이템 추가 id=", Integer.toString(cursor.getInt(0)));
         }
         cursor.close();
-        listView.setAdapter((adapter));
+        listView.setAdapter(adapter);
         Log.d(TAG, "listLoad: 완료");
     }
 
@@ -80,7 +80,7 @@ public class calendar extends Fragment {
         listView = view.findViewById(R.id.listView);
         dbHelper = new myDBHelper(getContext());
         db = dbHelper.getReadableDatabase();
-        adapter = new ListViewAdapter(getContext());
+        adapter = new ListViewAdapter(view.getContext());
 
         //item 클릭시 인텐트 안고 popup창으로 진입
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,6 +101,8 @@ public class calendar extends Fragment {
                 //listview갱신
            }
         });
+
+
         //스크롤뷰 - 리스트뷰 터치간섭 제거
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -132,13 +134,5 @@ public class calendar extends Fragment {
             }
         });
         return view;
-    }
-    public void cancelAlarm(int id){
-        Context context = getActivity().getApplicationContext();
-        Intent alarmIntent = new Intent(context,MyReceiver.class);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-
-        PendingIntent sender = PendingIntent.getBroadcast(context, id, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.cancel(sender);
     }
 }

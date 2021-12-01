@@ -43,7 +43,7 @@ public class myDBHelper extends SQLiteOpenHelper {
 
     public void delete(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM notiTBL WHERE ID = " + id +";");
+        db.execSQL("DELETE FROM notiTBL WHERE notiId = " + id +";");
         db.close();
     }
 

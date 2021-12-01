@@ -165,7 +165,6 @@ public class Schedule_popup extends Activity {
         //pendingIntent = 특정 시점 까지 기다리는 인텐트
         PendingIntent sender = PendingIntent.getBroadcast(context, id, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), sender);
-
     }
 
     public void setAlarm(CheckBox dayOfWeek[], int hour, int minute){
