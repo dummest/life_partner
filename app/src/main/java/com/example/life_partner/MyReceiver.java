@@ -13,10 +13,10 @@ public class MyReceiver extends BroadcastReceiver {
     @SuppressLint("InvalidWakeLockTag")
     @Override
     public void onReceive(Context context, Intent intent) {
+            Log.d("receiver", "리시버 호출 , id = " + intent.getIntExtra("notiId",0));
             Intent in = new Intent(context, AlarmService.class );
             in.putExtra("notiId", intent.getIntExtra("notiId", 0));
             in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startService(in);
-        Log.d("receiver", "리시버 호출");
     }
 }

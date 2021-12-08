@@ -67,7 +67,7 @@ public class AlarmService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)//헤드업 알람
                 .setContentTitle(title)//제목 텍스트
                 .setContentText(description)
-                .setSmallIcon(R.mipmap.ic_launcher)//작은 아이콘
+                .setSmallIcon(R.drawable.ic_launcher_handshake_foreground)//작은 아이콘
                 .setContentIntent(pendingIntent)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setAutoCancel(true);

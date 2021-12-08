@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".timer"
     android:orientation="vertical">
 
         <LinearLayout
@@ -31,6 +30,7 @@
             </EditText>
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/timer_show_plan"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
