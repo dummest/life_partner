@@ -22,9 +22,11 @@ import android.widget.TextView;
 import java.net.URI;
 import java.util.Calendar;
 
+import in.shadowfax.proswipebutton.ProSwipeButton;
+
 public class AlarmActivity extends AppCompatActivity {
     Calendar calendar;
-    Button button;
+    ProSwipeButton proSwipeButton;
     TextView timeText, titleText, descriptionText;
     MediaPlayer mediaPlayer;
     Vibrator vibrator;
@@ -38,12 +40,12 @@ public class AlarmActivity extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
 
         calendar = Calendar.getInstance();
-        button =  findViewById(R.id.alarm_stop_button);
+        proSwipeButton =  findViewById(R.id.swipe);
         timeText = (TextView) findViewById(R.id.time_view);
         descriptionText = findViewById(R.id.description_view);
         titleText = findViewById(R.id.title_view);
@@ -88,10 +90,10 @@ public class AlarmActivity extends AppCompatActivity {
                 }
             }
         }).start(); // 실시간으로 시계 출력
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
+        proSwipeButton.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
+            @Override
+            public void onSwipeConfirm() {
                 vibrator.cancel();
                 ringtone.stop();
                 flag = false;

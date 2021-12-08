@@ -24,7 +24,7 @@
         android:calendarViewShown="false">
     </DatePicker>
 
-
+<!--
     <TableRow
         android:id="@+id/cb_table"
         android:visibility="gone"
@@ -79,7 +79,7 @@
         android:layout_gravity="end"
         android:text="  요일 반복 일정"
         android:background="@drawable/selected_border"/>
-
+-->
     <TimePicker
         android:id="@+id/time_selector"
         android:layout_width="match_parent"

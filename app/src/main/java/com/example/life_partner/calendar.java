@@ -120,6 +120,7 @@ public class calendar extends Fragment {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 if (selectedDay == null || selectedDay != date) {
                     selectedDay = date;
+
                     listLoad(date);
                 }
                 //선택된 날을 한번 더 클릭시

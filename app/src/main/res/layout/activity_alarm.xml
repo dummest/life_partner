@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AlarmActivity"
     android:background="@color/black"
     android:orientation="vertical">
@@ -51,15 +52,13 @@
         android:layout_height="match_parent"
         android:layout_weight="1.5"
         android:gravity="center">
-    <Button
-        android:id="@+id/alarm_stop_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_gravity="bottom"
-        android:text="알람 종료"
-        android:textColor="@color/white"
-        />
+        <in.shadowfax.proswipebutton.ProSwipeButton
+            android:id="@+id/swipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            app:bg_color="@color/bright_blue"
+            app:btn_text="알람 종료"/>
     </LinearLayout>
 
 </LinearLayout>

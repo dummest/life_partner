@@ -54,8 +54,9 @@ public class Schedule_popup extends Activity {
         title = findViewById(R.id.edt_title);
         tp = findViewById(R.id.time_selector);
         dp = findViewById(R.id.date_selector);
-        swch = findViewById(R.id.set_style_switch);
         des = findViewById(R.id.schedule_description);
+        /*
+        swch = findViewById(R.id.set_style_switch);
         tr = findViewById(R.id.cb_table);
         cb[0] = findViewById(R.id.sundayBox);
         cb[1] = findViewById(R.id.mondayBox);
@@ -64,16 +65,6 @@ public class Schedule_popup extends Activity {
         cb[4] = findViewById(R.id.thursdayBox);
         cb[5] = findViewById(R.id.fridayBox);
         cb[6] = findViewById(R.id.saturdayBox);
-        save = findViewById(R.id.schedule_btn_save);
-        rg = findViewById(R.id.alarm_type);
-        dbHelper = new myDBHelper(getApplicationContext());
-
-        notiId = getIntent().getIntExtra("notiId", 0);
-        if (notiId != 0)
-            initialize();
-
-
-
         swch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -87,11 +78,21 @@ public class Schedule_popup extends Activity {
                 }
             }
         });
+        */
+        save = findViewById(R.id.schedule_btn_save);
+        rg = findViewById(R.id.alarm_type);
+        dbHelper = new myDBHelper(getApplicationContext());
+
+        notiId = getIntent().getIntExtra("notiId", 0);
+        if (notiId != 0)
+            initialize();
 
         save.setOnClickListener(new View.OnClickListener() {
-            boolean cb_checked = false;
+
+            //boolean cb_checked = false;
             @Override
             public void onClick(View view) {
+                /*
                 if (swch.isChecked()){
                     for(CheckBox c : cb){
                         if (c.isChecked())
@@ -102,6 +103,7 @@ public class Schedule_popup extends Activity {
                         return;
                     }
                 }
+                 */
                 int year, month, day, hour, minute;
                 year = dp.getYear();
                 month = dp.getMonth();
@@ -126,21 +128,23 @@ public class Schedule_popup extends Activity {
 
                 //노티id가 초기값(0)일 때 즉 새로 만들 때
                 if(notiId == 0) {
+                    /*
                     if (cb_checked)
                         setAlarm(cb, hour, minute);
                     else {
-                        dbHelper.insert(year, month, day, hour, minute, title.getText().toString(), des.getText().toString(), alarmtype);
+                    */
+                    dbHelper.insert(year, month, day, hour, minute, title.getText().toString(), des.getText().toString(), alarmtype);
 
-                        //seq 값으로 마지막으로 삽입한 열의 id 알기
-                        SQLiteDatabase db = dbHelper.getWritableDatabase();
-                        String sql = "select seq from sqlite_sequence";
-                        Cursor cursor = db.rawQuery(sql, null);
-                        while (cursor.moveToNext()){
-                            notiId = cursor.getInt(0);
-                        }
-                        setAlarm(notiId, year, month, day, hour, minute);
+                    //seq 값으로 마지막으로 삽입한 열의 id 알기
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    String sql = "select seq from sqlite_sequence";
+                    Cursor cursor = db.rawQuery(sql, null);
+                    while (cursor.moveToNext()) {
+                        notiId = cursor.getInt(0);
                     }
+                    setAlarm(notiId, year, month, day, hour, minute);
                 }
+                //}
                 //노티id가 있을 떄 즉 편집할 때
                 else{
                     dbHelper.update(notiId, year, month, day, hour, minute, title.getText().toString(), des.getText().toString(), alarmtype);
