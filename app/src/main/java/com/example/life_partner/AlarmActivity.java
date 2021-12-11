@@ -28,8 +28,6 @@ public class AlarmActivity extends AppCompatActivity {
     Calendar calendar;
     ProSwipeButton proSwipeButton;
     TextView timeText, titleText, descriptionText;
-    MediaPlayer mediaPlayer;
-    Vibrator vibrator;
 
     boolean flag = true;
 
@@ -57,10 +55,6 @@ public class AlarmActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        long[] pattern = {100,1000};
-        v.vibrate(pattern,-1);
 
 
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
@@ -94,7 +88,6 @@ public class AlarmActivity extends AppCompatActivity {
         proSwipeButton.setOnSwipeListener(new ProSwipeButton.OnSwipeListener() {
             @Override
             public void onSwipeConfirm() {
-                vibrator.cancel();
                 ringtone.stop();
                 flag = false;
                 finish();

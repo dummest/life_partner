@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
         svcIntent.putExtra("command", "start");
         startForegroundService(svcIntent);///잠금화면 설정
 
-        svcIntent.putExtra("command", "stop");
-        startForegroundService(svcIntent);///잠금화면 설정 정지
+        //svcIntent.putExtra("command", "stop");
+        //startForegroundService(svcIntent);///잠금화면 설정 정지
         ///////////////////////설정에 스위치 넣어서 조절좀///////////
     }
 

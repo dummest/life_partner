@@ -15,9 +15,6 @@ public class ScreenLockReceiver extends BroadcastReceiver {
         Intent in = new Intent(context, LockScreenActivity.class);
         in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        Intent svcIntent =  new Intent(context.getApplicationContext(), ScreenLockService.class);
-        context.getApplicationContext().startForegroundService(svcIntent);
-
         context.startActivity(in);
         Log.d("스크린락서비스", "리시버 액티비티 시작");
         // }
