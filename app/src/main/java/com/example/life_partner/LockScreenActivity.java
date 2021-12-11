@@ -3,6 +3,7 @@ package com.example.life_partner;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ public class LockScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock_screen);
         Log.d("스크린락서비스 액티비티", "onCreate: ");
-        this.setShowWhenLocked(true);
         this.setShowWhenLocked(true);
 
         dateText = findViewById(R.id.lock_screen_date_textview);

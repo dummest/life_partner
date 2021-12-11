@@ -67,10 +67,18 @@ public class ListViewAdapter extends BaseAdapter {
         TextView titleText = view.findViewById(R.id.title_text);
         ImageButton imageButton = view.findViewById(R.id.deleteBtn);
 
-        if(listdata.getMinute() >= 10)
-            timeText.setText(Integer.toString(listdata.getHour()) + ":" + Integer.toString(listdata.getMinute()));
+        String hourString = "";
+        String minuteString = "";
+
+        if(listdata.getHour() >= 10)
+            hourString += Integer.toString(listdata.getHour()) + ":";
         else
-            timeText.setText(Integer.toString(listdata.getHour()) + ":0" + Integer.toString(listdata.getMinute()));
+            hourString += "0" + Integer.toString(listdata.getHour()) + ":";
+        if(listdata.getMinute() >= 10)
+            minuteString += Integer.toString(listdata.getMinute());
+        else
+            minuteString += "0" + Integer.toString(listdata.getMinute());
+
         titleText.setText(listdata.getTitle());
 
 

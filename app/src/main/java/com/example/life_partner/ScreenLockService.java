@@ -68,6 +68,7 @@ public class ScreenLockService extends Service {
         else{
             try {
                 stopForeground(true);
+                unregisterReceiver(receiver);
             }
             catch (NullPointerException ne){ }
             return START_NOT_STICKY;
@@ -78,8 +79,5 @@ public class ScreenLockService extends Service {
     public void onDestroy() {
         Log.d("ScreenLockService", "onDestroy");
         super.onDestroy();
-        if(receiver != null){
-            unregisterReceiver(receiver);
-        }
     }
 }
