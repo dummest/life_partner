@@ -90,7 +90,6 @@ public class AlarmService extends Service {
 
             startForeground(id, builder.build());
             stopForeground(true);
-
             break;
         }
     }

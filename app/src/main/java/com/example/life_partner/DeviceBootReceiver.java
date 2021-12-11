@@ -34,7 +34,7 @@ public class DeviceBootReceiver extends BroadcastReceiver {
 
             while(cursor.moveToNext()){
                 Calendar alarmCalendar = Calendar.getInstance();
-                alarmCalendar.set(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5));
+                alarmCalendar.set(cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5), 0);
                 Intent alarmIntent = new Intent(context,MyReceiver.class);
                 alarmIntent.putExtra("notiId", cursor.getInt(0));
 

@@ -73,6 +73,7 @@ public class ListViewAdapter extends BaseAdapter {
             timeText.setText(Integer.toString(listdata.getHour()) + ":0" + Integer.toString(listdata.getMinute()));
         titleText.setText(listdata.getTitle());
 
+
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,17 +101,22 @@ public class ListViewAdapter extends BaseAdapter {
                                     }
                                     listUpdate();
                                     Toast.makeText(context, "삭제되었습니다", Toast.LENGTH_SHORT).show();
-                                }
-                                catch (Exception e) {
+                                } catch (Exception e) {
                                     Toast.makeText(context, "이미 삭제된 일정입니다", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         })
                         .setNegativeButton("취소", null);
 
-                        builder.create().show();
-            };
+                builder.create().show();
+            }
         });
+
+        if(context == context.getApplicationContext()){
+            imageButton.setEnabled(false);
+            imageButton.setVisibility(View.INVISIBLE);
+        }
+
         return view;
     }
 

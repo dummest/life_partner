@@ -36,16 +36,19 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.13645833333333332" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.10729166666666666" />
         <entry key="app/src/main/res/drawable/ic_launcher_handshake_foreground.xml" value="0.13645833333333332" />
+        <entry key="app/src/main/res/drawable/life_partner_ic_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/outline_clear_24.xml" value="0.10648148148148148" />
         <entry key="app/src/main/res/drawable/round_border.xml" value="0.11927083333333334" />
         <entry key="app/src/main/res/drawable/selected_border.xml" value="0.11927083333333334" />
         <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.1614196356740266" />
+        <entry key="app/src/main/res/layout/activity_lock_screen.xml" value="0.12229293875025488" />
         <entry key="app/src/main/res/layout/app_widget.xml" value="0.16232272833373573" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_collection.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item.xml" value="0.2072752280262896" />
+        <entry key="app/src/main/res/layout/lock_screen_list_item.xml" value="0.11979166666666667" />
         <entry key="app/src/main/res/layout/schedule_add.xml" value="0.1486810551558753" />
         <entry key="app/src/main/res/layout/widget_list_item.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/widget_listview.xml" value="0.1" />
