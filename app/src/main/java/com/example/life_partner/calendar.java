@@ -25,12 +25,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.text.SimpleDateFormat;
 
 
 public class calendar extends Fragment {
@@ -44,6 +46,7 @@ public class calendar extends Fragment {
     String sql;
     Intent intent;
     ScrollView scrollView;
+    TextView dateTextView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,7 @@ public class calendar extends Fragment {
         super.onResume();
     }
     private void listLoad(CalendarDay date){
+        setDateTextView();
         adapter.list.clear();
         sql = "select * from notiTBL where year =" + date.getYear() + " and month = " + date.getMonth() + " and day = " + date.getDay() + " order by hour, minute;";
 
@@ -76,6 +80,7 @@ public class calendar extends Fragment {
         mcv = view.findViewById(R.id.calendar_view);
         mcv.setSelectedDate(CalendarDay.today());//시작할때 달력 오늘 선택으로 초기화
 
+        dateTextView = view.findViewById(R.id.dateText);
         scrollView = view.findViewById(R.id.calendar_tab_scroll_view);
         listView = view.findViewById(R.id.listView);
         dbHelper = new myDBHelper(getContext());
@@ -120,7 +125,6 @@ public class calendar extends Fragment {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 if (selectedDay == null || selectedDay != date) {
                     selectedDay = date;
-
                     listLoad(date);
                 }
                 //선택된 날을 한번 더 클릭시
@@ -135,5 +139,9 @@ public class calendar extends Fragment {
             }
         });
         return view;
+    }
+    private void setDateTextView(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+        dateTextView.setText(sdf.format(selectedDay.getDate()));
     }
 }

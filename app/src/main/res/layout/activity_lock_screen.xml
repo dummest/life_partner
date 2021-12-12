@@ -11,7 +11,6 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:textSize="30sp"
         android:text="년월일"/>
     <TextView
@@ -20,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:textAlignment="center"
         android:textSize="40sp"
         android:text="시분"/>
     <TextView
@@ -28,13 +26,25 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="아무곳이나 눌러 종료"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ListView
+            android:id="@+id/lock_screen_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selected_border"
+            android:layout_margin="50dp"/>
 
-    <ListView
-        android:id="@+id/lock_screen_listview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:background="@drawable/selected_border"
-        android:clickable="false"/>
 
+        <TextView
+            android:id="@+id/none_plan_textview"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오늘 등록된 일정이 없습니다"
+            android:visibility="gone"/>
+    </LinearLayout>
 </LinearLayout>

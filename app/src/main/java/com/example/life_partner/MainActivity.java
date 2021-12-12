@@ -30,11 +30,11 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.baseline_alarm_on_24);
         tabLayout.getTabAt(2).setIcon(R.drawable.baseline_settings_24);
 
-        /*
+
         Intent svcIntent =  new Intent(getApplicationContext(), ScreenLockService.class);
                 svcIntent.putExtra("command", "start");
                 startForegroundService(svcIntent);
-         */
+
 
         /*
         Intent svcIntent =  new Intent(getApplicationContext(), ScreenLockService.class);
