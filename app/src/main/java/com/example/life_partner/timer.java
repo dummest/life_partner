@@ -48,6 +48,7 @@ public class timer extends Fragment {
         TextView tv = view.findViewById(R.id.timer_show_plan);
 
 
+
         tp.setIs24HourView(true);
         tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override

@@ -3,15 +3,18 @@ package com.example.life_partner;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +25,7 @@ public class LockScreenActivity extends Activity {
     Date date = new Date();
     TextView dateText;
     TextView timeText;
+    TextView nonPlanText;
     LinearLayout linearLayout;
     ListView listView;
     ListViewAdapter adapter;
@@ -31,10 +35,10 @@ public class LockScreenActivity extends Activity {
         setContentView(R.layout.activity_lock_screen);
         Log.d("스크린락서비스 액티비티", "onCreate: ");
         this.setShowWhenLocked(true);
-        this.setShowWhenLocked(true);
 
         dateText = findViewById(R.id.lock_screen_date_textview);
         timeText = findViewById(R.id.lock_screen_time_textview);
+        nonPlanText = findViewById(R.id.none_plan_textview);
         linearLayout = findViewById(R.id.lock_screen_layout);
         listView = findViewById(R.id.lock_screen_listview);
         adapter = new ListViewAdapter(getApplicationContext());
@@ -66,6 +70,20 @@ public class LockScreenActivity extends Activity {
         }
         cursor.close();
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), adapter.getItem(i).getDescription(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //그 날 일정이 없으면 일정이 없다는 텍스트 보여주기
+        if(adapter.getCount()>0)
+            nonPlanText.setVisibility(View.GONE);
+        else
+            nonPlanText.setVisibility(View.VISIBLE);
+
         Log.d(TAG, "listLoad: 완료");
 
     }

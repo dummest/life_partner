@@ -44,7 +44,7 @@ public class ScreenLockService extends Service {
             NotificationChannel channel = new NotificationChannel(alarmId, "잠금화면", NotificationManager.IMPORTANCE_DEFAULT);
             nm.createNotificationChannel(channel);
 
-            Intent toMain = new Intent(this, MainActivity.class);
+            Intent toMain = new Intent(this, settingFragment.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, -1, toMain, PendingIntent.FLAG_CANCEL_CURRENT);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, alarmId)
@@ -68,6 +68,7 @@ public class ScreenLockService extends Service {
         else{
             try {
                 stopForeground(true);
+                unregisterReceiver(receiver);
             }
             catch (NullPointerException ne){ }
             return START_NOT_STICKY;
@@ -78,8 +79,5 @@ public class ScreenLockService extends Service {
     public void onDestroy() {
         Log.d("ScreenLockService", "onDestroy");
         super.onDestroy();
-        if(receiver != null){
-            unregisterReceiver(receiver);
-        }
     }
 }

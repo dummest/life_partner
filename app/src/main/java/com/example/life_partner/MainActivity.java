@@ -30,14 +30,17 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.baseline_alarm_on_24);
         tabLayout.getTabAt(2).setIcon(R.drawable.baseline_settings_24);
 
-        /////////////////////// 여기 //////////////////////////
+
         Intent svcIntent =  new Intent(getApplicationContext(), ScreenLockService.class);
         svcIntent.putExtra("command", "start");
-        startForegroundService(svcIntent);///잠금화면 설정
+        startForegroundService(svcIntent);
 
-        svcIntent.putExtra("command", "stop");
-        startForegroundService(svcIntent);///잠금화면 설정 정지
-        ///////////////////////설정에 스위치 넣어서 조절좀///////////
+
+        /*
+        Intent svcIntent =  new Intent(getApplicationContext(), ScreenLockService.class);
+                svcIntent.putExtra("command", "stop");
+                startForegroundService(svcIntent);
+         */
     }
 
     @Override

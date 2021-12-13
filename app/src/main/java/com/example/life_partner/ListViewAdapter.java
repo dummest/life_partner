@@ -32,6 +32,7 @@ import java.util.ArrayList;
 public class ListViewAdapter extends BaseAdapter {
     Context context;
     ArrayList<myData> list  = new ArrayList<myData>();
+    ImageButton imageButton;
     public ListViewAdapter(Context c) {
         context = c;
     }
@@ -65,56 +66,70 @@ public class ListViewAdapter extends BaseAdapter {
 
         TextView timeText = view.findViewById(R.id.time_text);
         TextView titleText = view.findViewById(R.id.title_text);
-        ImageButton imageButton = view.findViewById(R.id.deleteBtn);
+        imageButton = view.findViewById(R.id.deleteBtn);
 
-        if(listdata.getMinute() >= 10)
-            timeText.setText(Integer.toString(listdata.getHour()) + ":" + Integer.toString(listdata.getMinute()));
+
+        String hourString = "";
+        String minuteString = "";
+
+        if(listdata.getHour() >= 10)
+            hourString += Integer.toString(listdata.getHour()) + ":";
         else
-            timeText.setText(Integer.toString(listdata.getHour()) + ":0" + Integer.toString(listdata.getMinute()));
+            hourString += "0" + Integer.toString(listdata.getHour()) + ":";
+        if(listdata.getMinute() >= 10)
+            minuteString += Integer.toString(listdata.getMinute());
+        else
+            minuteString += "0" + Integer.toString(listdata.getMinute());
+
+        timeText.setText(hourString + minuteString);
+
         titleText.setText(listdata.getTitle());
 
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity mainActivity = new MainActivity();
-                AlertDialog.Builder builder = new AlertDialog.Builder(context)
-                        .setIcon(R.drawable.outline_clear_24)
-                        .setTitle("일정을 제거합니다")
-                        .setMessage(listdata.getTitle() + " 일정을 삭제 하시겠습니까?\n이 작업은 되돌릴 수 없습니다.")
-                        .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    SQLiteDatabase db;
-                                    myDBHelper dbHelper = new myDBHelper(context.getApplicationContext());
-                                    int id = listdata.getId();
-                                    list.remove(listdata);
-                                    dbHelper.delete(id);
 
-                                    AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                                    Intent intent = new Intent(context.getApplicationContext(), MyReceiver.class);
-                                    PendingIntent sender = PendingIntent.getBroadcast(context.getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                    if (sender != null) {
-                                        am.cancel(sender);
-                                        sender.cancel();
-                                    }
-                                    listUpdate();
-                                    Toast.makeText(context, "삭제되었습니다", Toast.LENGTH_SHORT).show();
-                                } catch (Exception e) {
-                                    Toast.makeText(context, "이미 삭제된 일정입니다", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        .setNegativeButton("취소", null);
-
-                builder.create().show();
-            }
-        });
 
         if(context == context.getApplicationContext()){
             imageButton.setEnabled(false);
-            imageButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.GONE);
+        }
+        else{
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    MainActivity mainActivity = new MainActivity();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                            .setIcon(R.drawable.outline_clear_24)
+                            .setTitle("일정을 제거합니다")
+                            .setMessage(listdata.getTitle() + " 일정을 삭제 하시겠습니까?\n이 작업은 되돌릴 수 없습니다.")
+                            .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    try {
+                                        SQLiteDatabase db;
+                                        myDBHelper dbHelper = new myDBHelper(context.getApplicationContext());
+                                        int id = listdata.getId();
+                                        list.remove(listdata);
+                                        dbHelper.delete(id);
+
+                                        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                                        Intent intent = new Intent(context.getApplicationContext(), MyReceiver.class);
+                                        PendingIntent sender = PendingIntent.getBroadcast(context.getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                        if (sender != null) {
+                                            am.cancel(sender);
+                                            sender.cancel();
+                                        }
+                                        listUpdate();
+                                        Toast.makeText(context, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+                                    } catch (Exception e) {
+                                        Toast.makeText(context, "이미 삭제된 일정입니다", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            })
+                            .setNegativeButton("취소", null);
+
+                    builder.create().show();
+                }
+            });
         }
 
         return view;
@@ -125,4 +140,3 @@ public class ListViewAdapter extends BaseAdapter {
         list.add(data);
     }
 }
-
