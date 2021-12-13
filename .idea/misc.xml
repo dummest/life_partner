@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER/AndroidStudioProjects/life_partner/app/src/main/res/layout/activity_alarm.xml" value="0.1625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/life_partner/app/src/main/res/layout/activity_lock_screen.xml" value="0.1625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/life_partner/app/src/main/res/layout/list_item.xml" value="0.1625" />
+        <entry key="..\:/Users/USER/AndroidStudioProjects/life_partner/app/src/main/res/xml/setting_list.xml" value="0.1" />
         <entry key="..\:/Users/rhqem/AndroidStudioProjects/Life_partner/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.11979166666666667" />
         <entry key="..\:/Users/rhqem/AndroidStudioProjects/Life_partner/app/src/main/res/drawable/baseline_alarm_on_24.xml" value="0.11979166666666667" />
         <entry key="..\:/Users/rhqem/AndroidStudioProjects/Life_partner/app/src/main/res/drawable/baseline_calendar_today_24.xml" value="0.1234375" />

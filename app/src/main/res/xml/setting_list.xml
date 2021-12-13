@@ -7,8 +7,7 @@
             android:summary="닉네임을 설정하세요."/>
     </PreferenceCategory>
 
-    <!-- Single Choice : RadioButton -->
-    <PreferenceCategory android:title="색 및 소리 관리">
+    <PreferenceCategory android:title="잠금화면 설정하기">
 
         <SwitchPreference
             android:key="locker"
