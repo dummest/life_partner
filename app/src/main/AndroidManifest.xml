@@ -59,11 +59,7 @@
             android:name=".LockScreenActivity"
             android:excludeFromRecents="true"
             android:exported="true"
-            android:launchMode="singleInstance"
-            android:permission="android.permission.SYSTEM_ALERT_WINDOW"/>
-        <activity
-            android:name=".developer"
-            android:exported="true"/>
+            android:launchMode="singleInstance" />
 
         <service
             android:name=".AlarmService"
@@ -75,8 +71,7 @@
             android:name=".ScreenLockService"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="false"
-            android:permission="android.permission.SYSTEM_ALERT_WINDOW"/>
+            android:stopWithTask="false"/>
 
         <activity android:name=".Schedule_popup" />
     </application>
