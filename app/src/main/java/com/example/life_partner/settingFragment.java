@@ -38,12 +38,15 @@ public class settingFragment  extends PreferenceFragmentCompat {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             PreferenceScreen screen = getPreferenceScreen();
             Intent svcIntent =  new Intent(getActivity().getApplicationContext(),ScreenLockService.class);
+
+            Log.d("onSharedPreferenceChanged 호출", "호출");
             if (key.equals("nickName")) { //이름 변경
                 EditTextPreference ep = findPreference(key);
                 Toast.makeText(getActivity(),"이름변경",Toast.LENGTH_SHORT).show();
                 ep.setSummary(prefs.getString(key,""));
             }
-            else if(prefs.getBoolean("locker",true)){
+
+            if(prefs.getBoolean("locker",true)){
                 svcIntent.putExtra("command", "start");
                 getActivity().getApplicationContext().startForegroundService(svcIntent);///잠금화면 설정
                 Log.d("잠금화면 on", "startForeground");
@@ -53,11 +56,6 @@ public class settingFragment  extends PreferenceFragmentCompat {
                 getActivity().getApplicationContext().startForegroundService(svcIntent);///잠금화면 설정 정지
                 Log.d("잠금화면 off", "deleteForeground");
             }
-
         }
-
-
-
     };
-
 }
