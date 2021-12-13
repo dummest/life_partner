@@ -62,7 +62,7 @@ public class ScreenLockService extends Service {
             try {
                 startForeground(-2, builder.build());
             }
-            catch (Exception e){ }
+            catch (NullPointerException ne){ }
             return START_STICKY;
         }
         else{
@@ -70,8 +70,7 @@ public class ScreenLockService extends Service {
                 stopForeground(true);
                 unregisterReceiver(receiver);
             }
-
-            catch(Exception e){}
+            catch (NullPointerException ne){ }
             return START_NOT_STICKY;
         }
     }

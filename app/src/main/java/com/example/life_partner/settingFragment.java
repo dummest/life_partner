@@ -43,7 +43,7 @@ public class settingFragment  extends PreferenceFragmentCompat {
                 Toast.makeText(getActivity(),"이름변경",Toast.LENGTH_SHORT).show();
                 ep.setSummary(prefs.getString(key,""));
             }
-            if(prefs.getBoolean("locker",true)){
+            else if(prefs.getBoolean("locker",true)){
                 svcIntent.putExtra("command", "start");
                 getActivity().getApplicationContext().startForegroundService(svcIntent);///잠금화면 설정
                 Log.d("잠금화면 on", "startForeground");
