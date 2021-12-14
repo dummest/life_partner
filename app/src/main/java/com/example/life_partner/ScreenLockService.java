@@ -70,7 +70,7 @@ public class ScreenLockService extends Service {
                 stopForeground(true);
                 unregisterReceiver(receiver);
             }
-            catch (NullPointerException ne){ }
+            catch (IllegalArgumentException iae){ }
             return START_NOT_STICKY;
         }
     }
