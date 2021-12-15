@@ -38,42 +38,47 @@ public class ScreenLockService extends Service {
         Log.d("스크린락서비스", "onStartCommand");
         super.onStartCommand(intent, flags, startId);
 
-        if(intent.getStringExtra("command").equals("start")) {
-            String alarmId = "life_partner_screen_lock";
-            NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel channel = new NotificationChannel(alarmId, "잠금화면", NotificationManager.IMPORTANCE_DEFAULT);
-            nm.createNotificationChannel(channel);
+        try {
+            if (intent.getStringExtra("command").equals("start")) {
+                String alarmId = "life_partner_screen_lock";
+                NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationChannel channel = new NotificationChannel(alarmId, "잠금화면", NotificationManager.IMPORTANCE_DEFAULT);
+                nm.createNotificationChannel(channel);
 
-            Intent toMain = new Intent(this, settingFragment.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, -1, toMain, PendingIntent.FLAG_CANCEL_CURRENT);
+                Intent toMain = new Intent(this, settingFragment.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, -1, toMain, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, alarmId)
-                    .setSmallIcon(R.drawable.ic_launcher_handshake_foreground)
-                    .setContentTitle("잠금화면 서비스")
-                    .setContentText("잠금화면 서비스 동작중")
-                    .setContentIntent(pendingIntent);
-            Log.d("스크린락서비스", "startForeground");
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, alarmId)
+                        .setSmallIcon(R.drawable.ic_launcher_handshake_foreground)
+                        .setContentTitle("잠금화면 서비스")
+                        .setContentText("잠금화면 서비스 동작중")
+                        .setContentIntent(pendingIntent);
+                Log.d("스크린락서비스", "startForeground");
 
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-            Log.d("스크린락서비스", "filter add, register Receiver");
-            registerReceiver(receiver, intentFilter);
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+                Log.d("스크린락서비스", "filter add, register Receiver");
+                registerReceiver(receiver, intentFilter);
 
-            try {
                 startForeground(-2, builder.build());
+                return START_STICKY;
+
             }
-            catch (NullPointerException ne){ }
-            return START_STICKY;
+        } catch (NullPointerException ne) {
+        } catch (IllegalArgumentException iae) {
         }
-        else{
-            try {
+        try {
+            if (intent.getStringExtra("command").equals("start")) {
                 stopForeground(true);
                 unregisterReceiver(receiver);
             }
-            catch (IllegalArgumentException iae){ }
-            return START_NOT_STICKY;
         }
+
+        catch (NullPointerException ne) { }
+        catch (IllegalArgumentException iae) { }
+        return START_NOT_STICKY;
     }
+
 
     @Override
     public void onDestroy() {
